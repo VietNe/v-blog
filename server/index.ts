@@ -8,7 +8,7 @@ import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 
 import { connectDB } from './config/database';
-
+import routes from './routes'
 
 // Middleware
 const app = express();
@@ -19,9 +19,7 @@ app.use(morgan('dev')); // write log, check data, show to console
 app.use(cookieParser());
 
 // Routes
-app.get('/', (req, res) => {
-    res.json({ msg: 'Hello, world!' });
-})
+app.use('/api', routes.authRouter);
 
 //  Database
 connectDB();
