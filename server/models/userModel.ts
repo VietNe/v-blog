@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-
+import { IUser } from '../config/interfaces'
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
     }, password: {
         type: String,
         required: [true, "Please add your password"],
-        maxLength: [6, "Password must be at least 6 chars."]
+        min: [6, "Password must be at least 6 chars."]
 
     }, avatar: {
         type: String,
@@ -24,11 +24,11 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        defaul: 'user' // admin
+        default: 'user' // admin
     },
     type: {
         type: String,
-        defaul: 'normal' // fast
+        default: 'register' // login
     }
 }
     , {
@@ -36,4 +36,4 @@ const userSchema = new mongoose.Schema({
     }
 )
 
-export default mongoose.model('User', userSchema)
+export default mongoose.model<IUser>('User', userSchema)
