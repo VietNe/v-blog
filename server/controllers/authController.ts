@@ -8,7 +8,8 @@ import { generateActiveToken } from '../config/generateToken'
 
 import sendMail from '../config/sendMail';
 import { validPhone, validateEmail } from '../middleware/valid'
-
+import { sendSMS } from '../config/sendSMS'
+import { IDecodedToken } from './../config/interfaces';
 
 const CLIENT_URL = `${process.env.BASE_URL}`;
 const authController = {
@@ -31,12 +32,44 @@ const authController = {
             const url = `${CLIENT_URL}/active/${active_token}`;
             if (validateEmail(account)) {
                 sendMail(account, url, 'Verify your email address.');
-                // return res.json({ status: 'OK', msg: 'Register succesfully.', data: newUser, active_token });
-                return res.json({ msg: 'Success! Please check your email.' })
+                return res.json({
+                    msg: 'Success! Please check your email.',
+                    // token: active_token 
+                })
+            }
+            else if (validPhone(account)) {
+                sendSMS(account, url, 'Verify your phone number')
+                return res.json({ msg: 'Success! Please check your phone.' })
             }
 
         } catch (err: any) {
             return res.status(500).json({ msg: err.message })
+        }
+    },
+    activeAccount: async (req: Request, res: Response) => {
+        try {
+            const { active_token } = req.body;
+            const decoded = <IDecodedToken>jwt.verify(active_token, `${process.env.ACTIVE_TOKEN_SECRET}`)
+            const { newUser } = decoded;
+
+            if (!newUser) return res.status(400).json({ msg: "Ivalid authentication." })
+
+            const user = new Users(newUser);
+
+            await user.save();
+            res.json({ msg: "Account has been activated" })
+
+        } catch (err: any) {
+            let errMsg;
+
+            if (err.code === 11000) {
+                errMsg = Object.keys(err.keyValue)[0] + " already exists."
+            } else {
+                let name = Object.keys(err.errors)[0]
+                errMsg = err.errors[`${name}`].message
+            }
+
+            return res.status(500).json({ msg: errMsg })
         }
     }
 }
