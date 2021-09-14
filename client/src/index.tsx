@@ -3,8 +3,8 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
-import "@styles/tailwind.scss";
-import "@styles/global.scss";
+import "styles/tailwind.scss";
+import "styles/global.scss";
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,4 +1,4 @@
-import { AppThunk, RootState } from "@app/store";
+import { AppThunk, RootState } from "app/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface CounterState {

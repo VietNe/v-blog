@@ -8,10 +8,10 @@ const MenuNav = () => {
     <>
       {navigation.map((item) => (
         <NavLink
-          activeClassName="bg-gray-600 text-white"
+          activeClassName="text-blue-400"
           key={item.name}
           to={item.path}
-          className=" hover:bg-gray-600 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+          className=" hover:text-blue-400 px-3 py-2 rounded-md text-sm font-bold "
         >
           {item.name}
         </NavLink>
