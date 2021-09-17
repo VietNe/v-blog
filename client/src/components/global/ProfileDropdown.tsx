@@ -1,5 +1,5 @@
 import { Menu, Transition } from "@headlessui/react";
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 import { NavLink } from "react-router-dom";
 
 const ProfileDropdown = () => {
@@ -8,9 +8,7 @@ const ProfileDropdown = () => {
       <Menu as="div" className="ml-3 relative">
         <Menu.Button className="flex text-sm rounded-full focus:outline-none hover:bg-blue-400 hover:text-white transition-all duration-200 p-1">
           <div className="flex items-center">
-            <div className="font-semibold mx-2 hidden lg:block">
-              Viet Nguyen
-            </div>
+            <div className="font-semibold mx-2 hidden lg:block">Viet Nguyen</div>
             <span className="sr-only">Open user menu</span>
             <img
               className="h-8 w-8 rounded-full"
@@ -39,10 +37,7 @@ const ProfileDropdown = () => {
             </Menu.Item>
 
             <Menu.Item>
-              <NavLink
-                to="/"
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-              >
+              <NavLink to="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                 Sign out
               </NavLink>
             </Menu.Item>

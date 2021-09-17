@@ -7,6 +7,9 @@ export interface IUserLogin {
   account: string;
   password: string;
 }
+export interface IUserRegister extends IUserLogin {
+  name: string;
+}
 
 export interface IUser extends IUserLogin {
   avatar: string;

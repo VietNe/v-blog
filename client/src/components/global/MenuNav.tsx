@@ -1,13 +1,22 @@
+import { MutableRefObject } from "react";
 import { NavLink } from "react-router-dom";
 const navigation = [
   { name: "Login", path: "/login", current: true },
   { name: "Register", path: "/register", current: false },
 ];
-const MenuNav = () => {
+
+interface IMenuNavProps {
+  close?: (focusableElement?: HTMLElement | MutableRefObject<HTMLElement | null>) => void;
+}
+
+const MenuNav = ({ close }: IMenuNavProps) => {
   return (
     <>
       {navigation.map((item) => (
         <NavLink
+          onClick={() => {
+            if (close) close();
+          }}
           activeClassName="text-blue-400"
           key={item.name}
           to={item.path}

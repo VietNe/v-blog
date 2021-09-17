@@ -30,7 +30,7 @@ const authController = {
       const active_token = generateActiveToken({ newUser });
       const url = `${CLIENT_URL}/active/${active_token}`;
       if (validateEmail(account)) {
-        sendMail(account, url, "Verify your email address.");
+        // sendMail(account, url, "Verify your email address.");
         return res.json({
           msg: "Success! Please check your email.",
           token: active_token,
