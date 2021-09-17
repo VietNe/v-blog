@@ -3,6 +3,9 @@ import { useForm } from "react-hook-form";
 
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline";
 import { Link } from "react-router-dom";
+import Button from "components/global/Button";
+import { useAppDispatch } from "app/hook";
+import { login } from "app/slices/authSlice";
 
 type FormData = {
   account: string;
@@ -16,8 +19,10 @@ const LoginPass = () => {
     formState: { errors },
   } = useForm<FormData>();
   const [typePass, setTypePass] = useState(false);
+  const dispatch = useAppDispatch();
   const onLogin = async (form: FormData) => {
     console.log(form);
+    dispatch(login(form));
   };
   return (
     <div className="space-y-5">
@@ -76,22 +81,15 @@ const LoginPass = () => {
           </Link>
         </div>
       </div>
+      {/* Register link */}
       <div className="text-sm">
         Don't have an account?
         <Link to="/register" className="hover:text-blue-300 ml-1 font-semibold">
-          Sign Up
+          Register Now
         </Link>
       </div>
       {/* End form */}
-      <div>
-        <button
-          onClick={handleSubmit(onLogin)}
-          type="submit"
-          className="w-full flex justify-center bg-blue-400 hover:bg-blue-300 text-gray-100 p-3  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500"
-        >
-          Register Now
-        </button>
-      </div>
+      <Button onClick={handleSubmit(onLogin)} text="Sign In" />
     </div>
   );
 };
