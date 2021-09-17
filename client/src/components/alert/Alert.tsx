@@ -16,7 +16,7 @@ const Alert = () => {
   return (
     <>
       {loading && (
-        <div className="w-screen h-screen bg-blue-400 bg-opacity-30 absolute z-50 flex items-center justify-center">
+        <div className="w-screen h-screen bg-blue-400 bg-opacity-30 absolute top-0 z-50 flex items-center justify-center">
           <Loading />
         </div>
       )}
