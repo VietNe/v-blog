@@ -1,5 +1,7 @@
+import Alert from "components/alert/Alert";
 import Header from "components/global/Header";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import PageRender from "./PageRender";
 
 function App() {
@@ -7,6 +9,8 @@ function App() {
     <div className="relative min-h-screen">
       <div className="absolute bg-gradient-to-b from-gray-200 to-gray-100 opacity-75 inset-0 z-0" />
       <Router>
+        <ToastContainer />
+        <Alert />
         <Header />
         <Switch>
           <Route exact path="/" component={PageRender} />

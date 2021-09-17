@@ -2,11 +2,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "app/store";
 import { postAPI } from "utils/FetchData";
 import { IUser, IUserLogin } from "utils/types";
+import { setAlert } from "./alertSlice";
 
 export interface AuthState {
   user: IUser;
   token: string;
-  //   status: "idle" | "loading" | "failed";
 }
 
 const initialState: AuthState = {
@@ -15,14 +15,17 @@ const initialState: AuthState = {
 };
 
 export const login = createAsyncThunk(
-  "counter/fetchCount",
-  async (userLogin: IUserLogin, { rejectWithValue }) => {
+  "counter/login",
+  async (userLogin: IUserLogin, { rejectWithValue, dispatch }) => {
     try {
+      dispatch(setAlert({ loading: true }));
       const response = await postAPI("login", userLogin);
       // The value we return becomes the `fulfilled` action payload
+      dispatch(setAlert({ loading: false, success: "Login success!" }));
+
       return response.data;
     } catch (error: any) {
-      console.log(error);
+      dispatch(setAlert({ loading: false, errors: "Login failed!" }));
       return rejectWithValue(error.response.data);
     }
   }
@@ -40,8 +43,6 @@ export const authSlice = createSlice({
     });
   },
 });
-
-// export const { increment, decrement, incrementByAmount } = counterSlice.actions;
 
 export const selectUser = (state: RootState) => state.auth.user;
 export const selectToken = (state: RootState) => state.auth.token;
